@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Language Detection</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(120deg, #74ebd5, #acb6e5);
+        }
+
+        header {
+            background-color: #2c3e50;
+            padding: 20px 0;
+            color: white;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        #brandname {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .ml-container {
+            width: 50%;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        textarea {
+            width: 90%;
+            height: 120px;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            resize: none;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .btn-info {
+            margin-top: 20px;
+            padding: 10px 25px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-info:hover {
+            background-color: #2980b9;
+        }
+
+        h3 {
+            margin-top: 25px;
+            color: #27ae60;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <div id="brandname">
+            Language Detection System
+        </div>
+    </div>
+</header>
+
+<div class="ml-container">
+    <form action="{{ url_for('predict') }}" method="POST">
+        <p><strong>Enter Your Message</strong></p>
+
+        <!-- Text stays after prediction -->
+        <textarea name="message"
+                  placeholder="Type text in any language...(for accuarte prediction provide minimum of 2 words.)">{{ message }}</textarea>
+        <br>
+
+        <!-- Predict Button -->
+        <input type="submit" class="btn-info" value="Predict">
+
+        <!-- Clear Button -->
+        <button type="button" class="btn-info"
+                onclick="clearText()"
+                style="background-color:#e74c3c; margin-left:10px;">
+            Clear
+        </button>
+    </form>
+
+    <!-- Prediction Result -->
+    {% if prediction %}
+        <h3>Predicted Language: {{ prediction }}</h3>
+    {% endif %}
+</div>
+
+<script>
+    function clearText() {
+        document.querySelector("textarea").value = "";
+        const result = document.querySelector("h3");
+        if (result) result.innerText = "";
+    }
+</script>
+
+</body>
+</html>
