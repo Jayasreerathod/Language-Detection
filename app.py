@@ -1,7 +1,6 @@
 
 from flask import Flask, render_template, url_for, request
 import pickle
-import joblib
 import numpy as np
 import pandas as pd
 from sklearn.svm import LinearSVC
